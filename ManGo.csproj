@@ -7,4 +7,23 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Presentation\Pages\Fonts\MooLahLah\MooLahLah-Regular.ttf" />
+    <None Remove="Presentation\Pages\Image\conservation.png" />
+    <None Remove="Presentation\Pages\Image\List.png" />
+    <None Remove="Presentation\Pages\Image\User.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="HtmlAgilityPack" Version="1.11.54" />
+    <PackageReference Include="MaterialDesignThemes" Version="4.9.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Presentation\Pages\Fonts\MooLahLah\MooLahLah-Regular.ttf" />
+    <Resource Include="Presentation\Pages\Image\conservation.png" />
+    <Resource Include="Presentation\Pages\Image\List.png" />
+    <Resource Include="Presentation\Pages\Image\User.png" />
+  </ItemGroup>
+
 </Project>
