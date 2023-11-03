@@ -6,10 +6,10 @@ namespace ManGo.Data.Database
 {
     public class ManGoBDContext : DbContext
     {
-        public DbSet<User> Users { get; set; }
+        public DbSet<User> User { get; set; }
         public DbSet<Profil> Profil { get; set; }
         public DbSet<Manga> Manga { get; set; }
-        public DbSet<Chapters> Chapters { get; set; }
+        public DbSet<Chapters> Chapter { get; set; }
         public DbSet<Pages> Page { get; set; }
         public DbSet<Reading_List> Reading_List { get; set; }
 

@@ -1,0 +1,109 @@
+﻿<Window x:Class="ManGo.Login_of_SignUpPage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:ManGo"
+        mc:Ignorable="d"
+        Title="Login_of_SignUpPage" MinHeight="450" MinWidth="800" Height="450" Width="800" SizeChanged="Window_SizeChanged">
+    <Window.Resources>
+        <FontFamily x:Key="FontMoo">/ManGo;component/Presentation/Pages/Fonts/MooLahLah/MooLahLah-Regular.ttf#Moo Lah Lah</FontFamily>
+    </Window.Resources>
+    <Grid Background="#FFFAF1E4">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.4*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Background="#FF9EB384" Orientation="Horizontal" Grid.ColumnSpan="2" >
+            <TextBlock Text="ManGo" FontFamily="{DynamicResource FontMoo}" FontSize="40" HorizontalAlignment="Left" Margin="5,0,0,0" VerticalAlignment="Center" MouseDown="ManGo_MouseDown"/>
+            <TextBox x:Name="tb_search" Text="Поиск" Background="#FFD9D9D9" Margin="20 0 20 0" Padding="10,3,0,0" UseLayoutRounding="True" CaretBrush="#FF435334" SelectionBrush="#FF435334" Width="{Binding ElementName=column_search, Path=ActualWidth}" Height="30" FontSize="15" />
+            <Image x:Name="I_list" Source="/Presentation/Pages/Image/List.png" Width="60" Height="30" MouseDown="I_list_MouseDown" />
+            <Image x:Name="I_conservation" Width="60" Height="30" Source="/Presentation/Pages/Image/conservation.png"  MouseDown="I_conservation_MouseDown"/>
+            <Image x:Name="I_User" Width="40" Height="30" Source="/Presentation/Pages/Image/User.png" HorizontalAlignment="Right" Margin="0,0,0,0" MouseDown="I_User_MouseDown" Visibility="Collapsed" />
+        </StackPanel>
+        <Button Grid.Row="2" x:Name="SignUp" Content="Реєстрація" Background="#FFCEDEBD" Height="25" Width="200" HorizontalAlignment="Left" Margin="10,0,0,0" BorderBrush="White" Click="SignUp_Click" />
+        <Button Grid.Row="4" x:Name="Login" Content="Вхід" Background="#FF9EB384" Height="25" Width="200" HorizontalAlignment="Left" Margin="10,0,0,0" BorderBrush="White" Click="Login_Click"/>
+        <StackPanel x:Name="sp_SidnUp" Grid.Row="2" Grid.Column="1" Grid.RowSpan="4" Margin="10,10,20,0" Visibility="Visible">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Text="Введіть своє майбутнє ім'я" HorizontalAlignment="Left"/>
+                <TextBox Grid.Row="1"
+                    x:Name="tb_Name"
+                     materialDesign:HintAssist.HelperText="Helper text longer than error"
+                     materialDesign:HintAssist.Hint="Name" TextChanged="tb_Name_TextChanged">
+                    <TextBox.Text>
+                        <Binding
+                             Path="Name"
+                             UpdateSourceTrigger="PropertyChanged">
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+                <TextBlock Grid.Row="3" Text="Введіть пароль" HorizontalAlignment="Left"/>
+                <PasswordBox
+                      x:Name="PasswordBox1" Grid.Row="4"
+                      materialDesign:HintAssist.HelperText="At least 8 characters"
+                      materialDesign:HintAssist.Hint="Password"
+                      materialDesign:TextFieldAssist.HasClearButton="True" PasswordChanged="PasswordBox_PasswordChanged" />
+                <TextBlock Grid.Row="6" Text="Введіть пароль ще раз" HorizontalAlignment="Left"/>
+                <PasswordBox
+                        x:Name="PasswordBox2" Grid.Row="7"
+                        materialDesign:HintAssist.HelperText="At least 8 characters"
+                        materialDesign:HintAssist.Hint="Password"
+                        materialDesign:TextFieldAssist.HasClearButton="True" /> 
+            </Grid>
+        </StackPanel>
+        <StackPanel x:Name="sp_login" Grid.Row="2" Grid.Column="1" Grid.RowSpan="4" Margin="10,10,20,0" Visibility="Collapsed">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Text="Введіть своє ім'я / Email / Номер телефону " HorizontalAlignment="Left"/>
+                <TextBox Grid.Row="1"
+             x:Name="tb_Name2"
+              materialDesign:HintAssist.HelperText="Helper text longer than error"
+              materialDesign:HintAssist.Hint="Name" TextChanged="tb_Name_TextChanged">
+                    <TextBox.Text>
+                        <Binding
+                      Path="Name"
+                      UpdateSourceTrigger="PropertyChanged">
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+                <TextBlock Grid.Row="3" Text="Введіть пароль" HorizontalAlignment="Left"/>
+                <PasswordBox
+               x:Name="PasswordBox3" Grid.Row="4"
+               materialDesign:HintAssist.HelperText="At least 8 characters"
+               materialDesign:HintAssist.Hint="Password"
+               materialDesign:TextFieldAssist.HasClearButton="True" />
+            </Grid>
+        </StackPanel>
+        <Button Grid.Row="6" Grid.Column="1" x:Name="Create" Content="Завершити реєстрацію" Background="#FF9EB384" Height="25" Width="200" HorizontalAlignment="Center" Margin="10,0,0,0" BorderBrush="White" Click="Login_SignUp_ClickAsync"/>
+    </Grid>
+</Window>

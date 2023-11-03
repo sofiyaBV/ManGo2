@@ -21,19 +21,19 @@ namespace ManGo
         }
         private double previousWidth;
 
+
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             if (e.NewSize.Width != previousWidth)
             {
-
                 double newWidth;
                 if (I_User.Visibility != Visibility.Collapsed)
-                { newWidth  = e.NewSize.Width - 350; }
-                else { newWidth  = e.NewSize.Width - 400; }
+                { newWidth  = e.NewSize.Width - 380; }
+                else { newWidth  = e.NewSize.Width - 410; }
 
-                 
                 tb_search.Width = newWidth;
                 previousWidth = e.NewSize.Width;
+
             }
         }
 
@@ -98,6 +98,24 @@ namespace ManGo
 
                 stackPanel.ToolTip = toolTip; // Присваиваем ToolTip к StackPanel
             }
+        }
+
+        private void Login_of_SignUp_Click(object sender, RoutedEventArgs e)
+        {
+            Login_of_SignUpPage login_Of_SignUpPage = new Login_of_SignUpPage();
+            if (this.WindowState == WindowState.Maximized)
+            {
+                login_Of_SignUpPage.WindowState = WindowState.Maximized; // Установите новому окну состояние развернутого окна
+            }
+            else
+            {
+                login_Of_SignUpPage.Width = this.Width;
+                login_Of_SignUpPage.Height = this.Height;
+                login_Of_SignUpPage.Left = this.Left;
+                login_Of_SignUpPage.Top = this.Top;
+            }
+            login_Of_SignUpPage.Show();
+            Close();
         }
     }
 }

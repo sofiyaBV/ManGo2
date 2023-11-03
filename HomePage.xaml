@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"        
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:ManGo"
         mc:Ignorable="d"
         Title="HomePage" MinHeight="450" MinWidth="800" Height="450" Width="800" FontSize="20" SizeChanged="Window_SizeChanged" Loaded="HomePage_Loaded">
@@ -27,9 +27,10 @@
             <TextBox x:Name="tb_search" Text="Поиск" Background="#FFD9D9D9" Margin="20 0 20 0" Padding="10,3,0,0" UseLayoutRounding="True" CaretBrush="#FF435334" SelectionBrush="#FF435334" Width="{Binding ElementName=column_search, Path=ActualWidth}" Height="30" FontSize="15" />
             <Image x:Name="I_list" Source="/Presentation/Pages/Image/List.png" Width="60" Height="30" MouseDown="I_list_MouseDown" />
             <Image x:Name="I_conservation" Width="60" Height="30" Source="/Presentation/Pages/Image/conservation.png"  MouseDown="I_conservation_MouseDown"/>
+            <Image x:Name="I_User" Width="40" Height="30" Source="/Presentation/Pages/Image/User.png" HorizontalAlignment="Right"  MouseDown="I_User_MouseDown" Visibility="Collapsed"/>
+            <Button x:Name="Login_of_SignUp" Content="Реєстрація"  HorizontalAlignment="Right" Background="#FFBF1717" Foreground="White" Click="Login_of_SignUp_Click" Visibility="Visible"/>
         </StackPanel>
-        <Image x:Name="I_User" Width="40" Height="30" Source="/Presentation/Pages/Image/User.png" HorizontalAlignment="Right" Margin="0,0,10,0" MouseDown="I_User_MouseDown" Visibility="Collapsed"/>
-        <Button x:Name="Login_of_SignUp" Content="Вхід"  HorizontalAlignment="Right" Margin="0,0,10,0" />
+
 
         <Label Grid.Row="2" Content="Обновления популярной манги" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="20,0,0,0" />
         <ListView x:Name="LV_popular_manga" Grid.Row="3" Grid.RowSpan="2" Margin="20,20,24,20">
