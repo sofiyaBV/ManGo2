@@ -25,7 +25,13 @@ namespace ManGo
         {
             if (e.NewSize.Width != previousWidth)
             {
-                double newWidth = e.NewSize.Width - 350;
+
+                double newWidth;
+                if (I_User.Visibility != Visibility.Collapsed)
+                { newWidth  = e.NewSize.Width - 350; }
+                else { newWidth  = e.NewSize.Width - 400; }
+
+                 
                 tb_search.Width = newWidth;
                 previousWidth = e.NewSize.Width;
             }
@@ -64,34 +70,34 @@ namespace ManGo
 
         private void LV_popular_manga_MouseEnter(object sender, MouseEventArgs e)
         {
-            //var stackPanel = sender as StackPanel; // Получаем StackPanel, на котором было событие
-            //if (stackPanel != null)
-            //{
-            //    ImageSource imageSource = ((Image)stackPanel.Children[0]).Source; // Получаем изображение
-            //    string text = ((TextBlock)stackPanel.Children[1]).Text; // Получаем текст
+            var stackPanel = sender as StackPanel; // Получаем StackPanel, на котором было событие
+            if (stackPanel != null)
+            {
+                ImageSource imageSource = ((Image)stackPanel.Children[0]).Source; // Получаем изображение
+                string text = ((TextBlock)stackPanel.Children[1]).Text; // Получаем текст
 
-            //    ToolTip toolTip = new ToolTip();
-            //    toolTip.Placement = PlacementMode.Right;
+                ToolTip toolTip = new ToolTip();
+                toolTip.Placement = PlacementMode.Right;
 
-            //    Grid toolTipContentGrid = new Grid();
-            //    toolTipContentGrid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(1, GridUnitType.Star) }); // Первая колонка, размер задается автоматически
-            //    toolTipContentGrid.ColumnDefinitions.Add(new ColumnDefinition() { Width = GridLength.Auto }); // Вторая колонка, размер определяется автоматически
-            //    toolTipContentGrid.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto  });
-            //    toolTipContentGrid.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
-            //    toolTipContentGrid.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
+                Grid toolTipContentGrid = new Grid();
+                toolTipContentGrid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(1, GridUnitType.Star) }); // Первая колонка, размер задается автоматически
+                toolTipContentGrid.ColumnDefinitions.Add(new ColumnDefinition() { Width = GridLength.Auto }); // Вторая колонка, размер определяется автоматически
+                toolTipContentGrid.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
+                toolTipContentGrid.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
+                toolTipContentGrid.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
 
 
-            //    toolTipContentGrid.Children.Add(new Image { Source = imageSource, Width = 100, Height = 100 }); // Добавляем изображение в первую колонку
+                toolTipContentGrid.Children.Add(new Image { Source = imageSource, Width = 100, Height = 100 }); // Добавляем изображение в первую колонку
 
-            //    TextBlock textBlock = new TextBlock { Text = text };
-            //    Grid.SetColumn(textBlock, 1); // Устанавливаем колонку для TextBlock
-            //    Grid.SetColumn(textBlock, 2);
-            //    toolTipContentGrid.Children.Add(textBlock); // Добавляем TextBlock во вторую колонку
+                TextBlock textBlock = new TextBlock { Text = text };
+                Grid.SetColumn(textBlock, 1); // Устанавливаем колонку для TextBlock
+                Grid.SetColumn(textBlock, 2);
+                toolTipContentGrid.Children.Add(textBlock); // Добавляем TextBlock во вторую колонку
 
-            //    toolTip.Content = toolTipContentGrid;
+                toolTip.Content = toolTipContentGrid;
 
-            //    stackPanel.ToolTip = toolTip; // Присваиваем ToolTip к StackPanel
-            //}
+                stackPanel.ToolTip = toolTip; // Присваиваем ToolTip к StackPanel
+            }
         }
     }
 }
