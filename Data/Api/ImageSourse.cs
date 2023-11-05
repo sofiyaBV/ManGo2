@@ -10,5 +10,6 @@ namespace ManGo.Data.Api
     {
         public string? ImageURL { get; set; }
         public string? Text { get; set; }
+        public string? Href { get; set; }
     }
 }

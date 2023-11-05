@@ -1,0 +1,27 @@
+﻿<Window x:Class="ManGo.ReadingWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ManGo"
+        mc:Ignorable="d"
+        Title="ReadingWindow" Height="450" Width="800" Loaded="Window_Loaded">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <ComboBox x:Name="PageComboBox" Width="100" HorizontalAlignment="Center" VerticalAlignment="Top" SelectionChanged="PageComboBox_SelectionChanged">
+            <!-- Добавьте элементы ComboBoxItem для всех страниц -->
+        </ComboBox>
+        <ScrollViewer Grid.Row="1" Name="ScrollViewer" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+            <StackPanel Name="PageContainer" Orientation="Horizontal">
+                <!-- Здесь будут отображаться страницы -->
+            </StackPanel>
+        </ScrollViewer>
+        <StackPanel Grid.Row="1" Name="NavigationButtons" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+            <Button Content="Предыдущая" Click="PreviousPage_Click" />
+            <Button Content="Следующая" Click="NextPage_Click" />
+        </StackPanel>
+    </Grid>
+</Window>

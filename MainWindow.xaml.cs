@@ -12,6 +12,8 @@ namespace ManGo
             InitializeComponent();
             HomePage homePage = new HomePage();
             homePage.Show();
+            //Login_of_SignUpPage login_Of_SignUpPage = new Login_of_SignUpPage();
+            //login_Of_SignUpPage.Show();
             Close();
         }
     }

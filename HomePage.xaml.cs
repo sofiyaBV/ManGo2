@@ -1,5 +1,4 @@
-﻿
-using ManGo.Data.Api;
+﻿using ManGo.Data.Api;
 using System;
 using System.Collections.Generic;
 using System.Windows;
@@ -100,22 +99,33 @@ namespace ManGo
             }
         }
 
-        private void Login_of_SignUp_Click(object sender, RoutedEventArgs e)
+        
+
+        private void StackPanel_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            Login_of_SignUpPage login_Of_SignUpPage = new Login_of_SignUpPage();
-            if (this.WindowState == WindowState.Maximized)
+            string href = null;
+            if (sender is StackPanel stackPanel)
             {
-                login_Of_SignUpPage.WindowState = WindowState.Maximized; // Установите новому окну состояние развернутого окна
+                if (stackPanel.DataContext is ImageSourse imageSourse)
+                {
+                    href = imageSourse.Href;
+                }
+
+                TitleWindow titleWindow = new TitleWindow(href);
+                if (this.WindowState == WindowState.Maximized)
+                {
+                    titleWindow.WindowState = WindowState.Maximized; // Установите новому окну состояние развернутого окна
+                }
+                else
+                {
+                    titleWindow.Width = this.Width;
+                    titleWindow.Height = this.Height;
+                    titleWindow.Left = this.Left;
+                    titleWindow.Top = this.Top;
+                }
+                titleWindow.Show();
+                Close();
             }
-            else
-            {
-                login_Of_SignUpPage.Width = this.Width;
-                login_Of_SignUpPage.Height = this.Height;
-                login_Of_SignUpPage.Left = this.Left;
-                login_Of_SignUpPage.Top = this.Top;
-            }
-            login_Of_SignUpPage.Show();
-            Close();
         }
     }
 }

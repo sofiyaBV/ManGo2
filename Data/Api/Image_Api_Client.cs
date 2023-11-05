@@ -5,6 +5,15 @@ using System.Collections.Generic;
 using System.Net;
 using HtmlAgilityPack;
 using System.Linq;
+using System.Windows;
+using ManGo.Data.Database.Tebles;
+using PuppeteerSharp;
+using System.Security.Policy;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+using System.Threading;
+using System.Windows.Documents;
+using OpenQA.Selenium.Support.UI;
 
 namespace ManGo.Data.Api
 {
@@ -26,7 +35,7 @@ namespace ManGo.Data.Api
                     loadedImageUrls.Add(imageData.ImageURL);
                 }
             }
-            return imageUrls; 
+            return imageUrls;
         }
         async Task<string> DownloadHtmlAsync(string baseUrl)
         {
@@ -60,12 +69,18 @@ namespace ManGo.Data.Api
                         foreach (var divNode in divNodes)
                         {
                             IEnumerable<HtmlNode> imgNodes = divNode.SelectNodes(".//img[@class='img']");
+
                             var titleNode = divNode.SelectSingleNode(".//a[@class='title two_lined']");
+                            string hrefValue = titleNode?.GetAttributeValue("href", "");
+
                             if (imgNodes != null || titleNode!= null)
                             {
+
                                 foreach (var imgNode in imgNodes)
                                 {
                                     string imageUrl = imgNode.GetAttributeValue("src", "");
+
+
                                     if (!string.IsNullOrWhiteSpace(imageUrl) && uniqueImageUrls.Add(imageUrl))
                                     {
                                         Uri fullUri;
@@ -75,7 +90,8 @@ namespace ManGo.Data.Api
                                             imagesData.Add(new ImageSourse
                                             {
                                                 ImageURL = fullUri.AbsoluteUri,
-                                                Text = decodedTitle
+                                                Text = decodedTitle,
+                                                Href = hrefValue
                                             });
                                         }
                                     }
@@ -92,7 +108,6 @@ namespace ManGo.Data.Api
                         {
                             var imgNodes = divNode.SelectNodes(".//img[@class='img']");
                             var titleNodes = divNode.SelectNodes(".//a[@class='title two_lined']");
-
                             if (imgNodes != null && titleNodes != null)
                             {
                                 var imgNodeList = imgNodes.ToList();
@@ -102,6 +117,8 @@ namespace ManGo.Data.Api
                                 {
                                     string imageUrl = imgNodeList[i].GetAttributeValue("src", "");
                                     string decodedTitle = WebUtility.HtmlDecode(titleNodeList[j].InnerText);
+                                    string hrefValue = titleNodeList[j].GetAttributeValue("href", "");
+
                                     if (!string.IsNullOrWhiteSpace(imageUrl))
                                     {
                                         Uri fullUri;
@@ -110,7 +127,8 @@ namespace ManGo.Data.Api
                                             imagesData.Add(new ImageSourse
                                             {
                                                 ImageURL = fullUri.AbsoluteUri,
-                                                Text = decodedTitle
+                                                Text = decodedTitle,
+                                                Href = hrefValue
                                             });
                                             j++;
                                         }
@@ -126,5 +144,75 @@ namespace ManGo.Data.Api
             }
             return imagesData;
         }
+
+        public string ReturnUrlTitle(string uri)
+        {
+            string fullUrl = baseUrl + '/' + uri;
+
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    // Выполняем GET-запрос к указанному URL
+                    string html = client.GetStringAsync(fullUrl).Result;
+
+                    // Загружаем HTML-документ с использованием HtmlAgilityPack
+                    HtmlDocument doc = new HtmlDocument();
+                    doc.LoadHtml(html);
+
+                    // Находим элемент с классом "b-link_button" и "dark", который содержит URL
+                    var linkNode = doc.DocumentNode.SelectSingleNode("//a[contains(@class, 'b-link_button') and contains(@class, 'dark') and contains(@class, 'read-online') and contains(@class, 'anime-date') and contains(@class, 'Tooltip')]");
+
+                    if (linkNode != null)
+                    {
+                        string hrefValue = linkNode.GetAttributeValue("href", "");
+                        return hrefValue;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Обработка ошибок при выполнении HTTP-запроса или разборе HTML
+                Console.WriteLine("Error: " + ex.Message);
+            }
+
+            return "error";
+        }
+
+
+        public Task<List<string>> ReturnImageUrls(string uri)
+        {
+            
+            string fullUrl = baseUrl + '/' + uri;
+            ChromeOptions options = new ChromeOptions();
+            options.AddArgument("--headless");
+            options.AddArgument("--disable-gpu");
+            options.AddArgument("--disable-extensions");
+
+            using (IWebDriver driver = new ChromeDriver(options))
+            {
+                driver.Navigate().GoToUrl(fullUrl);
+
+                // Найдем элемент с id "preload"
+                var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(60)); // Установите максимальное время ожидания
+
+                // Используем ExpectedConditions для проверки, что страница загрузилась
+                wait.Until(d => ((IJavaScriptExecutor)d).ExecuteScript("return document.readyState").Equals("complete"));
+
+                IWebElement preloadElement = driver.FindElement(By.Id("preload"));
+
+                // Извлечем все URL изображений внутри элемента "preload"
+                var imageUrls = preloadElement.FindElements(By.TagName("img"))
+                    .Select(img => img.GetAttribute("src"))
+                    .ToList();
+
+                // Закроем браузер
+                driver.Quit();
+
+                return Task.FromResult(imageUrls);
+            }
+        }
+     
     }
 }
+

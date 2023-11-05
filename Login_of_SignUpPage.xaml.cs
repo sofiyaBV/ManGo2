@@ -14,59 +14,15 @@ namespace ManGo
     /// <summary>
     /// Логика взаимодействия для Login_of_SignUpPage.xaml
     /// </summary>
+    
     public partial class Login_of_SignUpPage : Window
     {
         public Login_of_SignUpPage()
         {
             InitializeComponent();
         }
-        private double previousWidth;
         private SnackbarMessageQueue messageQueue = new SnackbarMessageQueue();
-
-        private void I_list_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-
-        }
-
-        private void I_conservation_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-
-        }
-
-        private void I_User_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-
-        }
-
-        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            if (e.NewSize.Width != previousWidth)
-            {
-                double newWidth;
-                newWidth  = e.NewSize.Width - 360;
-
-                tb_search.Width = newWidth;
-                previousWidth = e.NewSize.Width;
-            }
-        }
-
-        private void ManGo_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            HomePage homePage = new HomePage();
-            if (this.WindowState == WindowState.Maximized)
-            {
-                homePage.WindowState = WindowState.Maximized; // Установите новому окну состояние развернутого окна
-            }
-            else
-            {
-                homePage.Width = this.Width;
-                homePage.Height = this.Height;
-                homePage.Left = this.Left;
-                homePage.Top = this.Top;
-            }
-            homePage.Show();
-            Close();
-        }
+    
 
         private void tb_Name_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
@@ -123,8 +79,20 @@ namespace ManGo
                                 {
                                     context.User.Add(new User(login, password));
                                     context.SaveChanges();
-                                    I_User.Visibility = Visibility.Visible;
-                                    ShowSnackbar("Ви успішно увійшли");
+                                    HomePage homePage = new HomePage();
+                                    if (this.WindowState == WindowState.Maximized)
+                                    {
+                                        homePage.WindowState = WindowState.Maximized; // Установите новому окну состояние развернутого окна
+                                    }
+                                    else
+                                    {
+                                        homePage.Width = this.Width;
+                                        homePage.Height = this.Height;
+                                        homePage.Left = this.Left;
+                                        homePage.Top = this.Top;
+                                    }
+                                    homePage.Show();
+                                    Close();
                                 }
                             }
                         }
@@ -140,8 +108,20 @@ namespace ManGo
 
                         if (isUserAuthenticated)
                         {
-                            ShowSnackbar(" Ви успішно увійшли");
-                            I_User.Visibility = Visibility.Visible;
+                            HomePage homePage = new HomePage();
+                            if (this.WindowState == WindowState.Maximized)
+                            {
+                                homePage.WindowState = WindowState.Maximized; // Установите новому окну состояние развернутого окна
+                            }
+                            else
+                            {
+                                homePage.Width = this.Width;
+                                homePage.Height = this.Height;
+                                homePage.Left = this.Left;
+                                homePage.Top = this.Top;
+                            }
+                            homePage.Show();
+                            Close();
                         }
                         else
                         {

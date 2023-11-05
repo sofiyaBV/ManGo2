@@ -6,7 +6,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:ManGo"
         mc:Ignorable="d"
-        Title="Login_of_SignUpPage" MinHeight="450" MinWidth="800" Height="450" Width="800" SizeChanged="Window_SizeChanged">
+        Title="Login_of_SignUpPage" MinHeight="450" MinWidth="800" Height="450" Width="800">
     <Window.Resources>
         <FontFamily x:Key="FontMoo">/ManGo;component/Presentation/Pages/Fonts/MooLahLah/MooLahLah-Regular.ttf#Moo Lah Lah</FontFamily>
     </Window.Resources>
@@ -26,11 +26,10 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <StackPanel Background="#FF9EB384" Orientation="Horizontal" Grid.ColumnSpan="2" >
-            <TextBlock Text="ManGo" FontFamily="{DynamicResource FontMoo}" FontSize="40" HorizontalAlignment="Left" Margin="5,0,0,0" VerticalAlignment="Center" MouseDown="ManGo_MouseDown"/>
-            <TextBox x:Name="tb_search" Text="Поиск" Background="#FFD9D9D9" Margin="20 0 20 0" Padding="10,3,0,0" UseLayoutRounding="True" CaretBrush="#FF435334" SelectionBrush="#FF435334" Width="{Binding ElementName=column_search, Path=ActualWidth}" Height="30" FontSize="15" />
+            <TextBlock Text="ManGo" FontFamily="{DynamicResource FontMoo}" FontSize="40" HorizontalAlignment="Left" Margin="5,0,0,0" VerticalAlignment="Center" />
+            <!--<TextBox x:Name="tb_search" Text="Поиск" Background="#FFD9D9D9" Margin="20 0 20 0" Padding="10,3,0,0" UseLayoutRounding="True" CaretBrush="#FF435334" SelectionBrush="#FF435334" Width="{Binding ElementName=column_search, Path=ActualWidth}" Height="30" FontSize="15" />
             <Image x:Name="I_list" Source="/Presentation/Pages/Image/List.png" Width="60" Height="30" MouseDown="I_list_MouseDown" />
-            <Image x:Name="I_conservation" Width="60" Height="30" Source="/Presentation/Pages/Image/conservation.png"  MouseDown="I_conservation_MouseDown"/>
-            <Image x:Name="I_User" Width="40" Height="30" Source="/Presentation/Pages/Image/User.png" HorizontalAlignment="Right" Margin="0,0,0,0" MouseDown="I_User_MouseDown" Visibility="Collapsed" />
+            <Image x:Name="I_conservation" Width="60" Height="30" Source="/Presentation/Pages/Image/conservation.png"  MouseDown="I_conservation_MouseDown"/>-->
         </StackPanel>
         <Button Grid.Row="2" x:Name="SignUp" Content="Реєстрація" Background="#FFCEDEBD" Height="25" Width="200" HorizontalAlignment="Left" Margin="10,0,0,0" BorderBrush="White" Click="SignUp_Click" />
         <Button Grid.Row="4" x:Name="Login" Content="Вхід" Background="#FF9EB384" Height="25" Width="200" HorizontalAlignment="Left" Margin="10,0,0,0" BorderBrush="White" Click="Login_Click"/>
@@ -105,5 +104,6 @@
             </Grid>
         </StackPanel>
         <Button Grid.Row="6" Grid.Column="1" x:Name="Create" Content="Завершити реєстрацію" Background="#FF9EB384" Height="25" Width="200" HorizontalAlignment="Center" Margin="10,0,0,0" BorderBrush="White" Click="Login_SignUp_ClickAsync"/>
+
     </Grid>
 </Window>
