@@ -5,14 +5,8 @@ using System.Collections.Generic;
 using System.Net;
 using HtmlAgilityPack;
 using System.Linq;
-using System.Windows;
-using ManGo.Data.Database.Tebles;
-using PuppeteerSharp;
-using System.Security.Policy;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using System.Threading;
-using System.Windows.Documents;
 using OpenQA.Selenium.Support.UI;
 
 namespace ManGo.Data.Api
@@ -148,19 +142,14 @@ namespace ManGo.Data.Api
         public string ReturnUrlTitle(string uri)
         {
             string fullUrl = baseUrl + '/' + uri;
-
             try
             {
                 using (HttpClient client = new HttpClient())
                 {
-                    // Выполняем GET-запрос к указанному URL
                     string html = client.GetStringAsync(fullUrl).Result;
 
-                    // Загружаем HTML-документ с использованием HtmlAgilityPack
                     HtmlDocument doc = new HtmlDocument();
                     doc.LoadHtml(html);
-
-                    // Находим элемент с классом "b-link_button" и "dark", который содержит URL
                     var linkNode = doc.DocumentNode.SelectSingleNode("//a[contains(@class, 'b-link_button') and contains(@class, 'dark') and contains(@class, 'read-online') and contains(@class, 'anime-date') and contains(@class, 'Tooltip')]");
 
                     if (linkNode != null)
@@ -172,7 +161,6 @@ namespace ManGo.Data.Api
             }
             catch (Exception ex)
             {
-                // Обработка ошибок при выполнении HTTP-запроса или разборе HTML
                 Console.WriteLine("Error: " + ex.Message);
             }
 
@@ -182,7 +170,6 @@ namespace ManGo.Data.Api
 
         public Task<List<string>> ReturnImageUrls(string uri)
         {
-            
             string fullUrl = baseUrl + '/' + uri;
             ChromeOptions options = new ChromeOptions();
             options.AddArgument("--headless");
@@ -192,23 +179,16 @@ namespace ManGo.Data.Api
             using (IWebDriver driver = new ChromeDriver(options))
             {
                 driver.Navigate().GoToUrl(fullUrl);
+                var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(60));
 
-                // Найдем элемент с id "preload"
-                var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(60)); // Установите максимальное время ожидания
-
-                // Используем ExpectedConditions для проверки, что страница загрузилась
                 wait.Until(d => ((IJavaScriptExecutor)d).ExecuteScript("return document.readyState").Equals("complete"));
-
                 IWebElement preloadElement = driver.FindElement(By.Id("preload"));
 
-                // Извлечем все URL изображений внутри элемента "preload"
                 var imageUrls = preloadElement.FindElements(By.TagName("img"))
                     .Select(img => img.GetAttribute("src"))
                     .ToList();
 
-                // Закроем браузер
                 driver.Quit();
-
                 return Task.FromResult(imageUrls);
             }
         }

@@ -27,7 +27,7 @@ namespace ManGo
 
         private void ManGo_MouseDown(object sender, MouseButtonEventArgs e)
         {
-             HomePage homePage = new HomePage();
+            HomePage homePage = new HomePage();
             if (this.WindowState == WindowState.Maximized)
             {
                 homePage.WindowState = WindowState.Maximized; // Установите новому окну состояние развернутого окна
@@ -58,10 +58,9 @@ namespace ManGo
 
         }
 
-        private async void HomePage_Loaded(object sender, RoutedEventArgs e)
+        private void HomePage_Loaded(object sender, RoutedEventArgs e)
         {
-            string uri = client.ReturnUrlTitle(url);
-            list = await client.ReturnImageUrls(uri);
+            
         }
 
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -79,8 +78,10 @@ namespace ManGo
             }
         }
 
-        private void bt_reading_Click(object sender, RoutedEventArgs e)
+        private async void bt_reading_Click(object sender, RoutedEventArgs e)
         {
+            string uri = client.ReturnUrlTitle(url);
+            list = await client.ReturnImageUrls(uri);
             ReadingWindow readingWindow = new ReadingWindow(list);
             if (this.WindowState == WindowState.Maximized)
             {

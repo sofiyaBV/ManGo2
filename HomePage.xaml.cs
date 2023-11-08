@@ -1,5 +1,4 @@
 ﻿using ManGo.Data.Api;
-using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
@@ -35,7 +34,6 @@ namespace ManGo
 
             }
         }
-
         private async void HomePage_Loaded(object sender, RoutedEventArgs e)
         {
             Image_Api_Client image_Api_Client = new Image_Api_Client();
@@ -69,33 +67,33 @@ namespace ManGo
 
         private void LV_popular_manga_MouseEnter(object sender, MouseEventArgs e)
         {
-            var stackPanel = sender as StackPanel; // Получаем StackPanel, на котором было событие
+            var stackPanel = sender as StackPanel;
             if (stackPanel != null)
             {
-                ImageSource imageSource = ((Image)stackPanel.Children[0]).Source; // Получаем изображение
-                string text = ((TextBlock)stackPanel.Children[1]).Text; // Получаем текст
+                ImageSource imageSource = ((Image)stackPanel.Children[0]).Source; 
+                string text = ((TextBlock)stackPanel.Children[1]).Text;
 
                 ToolTip toolTip = new ToolTip();
                 toolTip.Placement = PlacementMode.Right;
 
                 Grid toolTipContentGrid = new Grid();
-                toolTipContentGrid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(1, GridUnitType.Star) }); // Первая колонка, размер задается автоматически
-                toolTipContentGrid.ColumnDefinitions.Add(new ColumnDefinition() { Width = GridLength.Auto }); // Вторая колонка, размер определяется автоматически
+                toolTipContentGrid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(1, GridUnitType.Star) }); 
+                toolTipContentGrid.ColumnDefinitions.Add(new ColumnDefinition() { Width = GridLength.Auto }); 
                 toolTipContentGrid.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
                 toolTipContentGrid.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
                 toolTipContentGrid.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
 
 
-                toolTipContentGrid.Children.Add(new Image { Source = imageSource, Width = 100, Height = 100 }); // Добавляем изображение в первую колонку
+                toolTipContentGrid.Children.Add(new Image { Source = imageSource, Width = 100, Height = 100 }); 
 
                 TextBlock textBlock = new TextBlock { Text = text };
-                Grid.SetColumn(textBlock, 1); // Устанавливаем колонку для TextBlock
+                Grid.SetColumn(textBlock, 1);
                 Grid.SetColumn(textBlock, 2);
-                toolTipContentGrid.Children.Add(textBlock); // Добавляем TextBlock во вторую колонку
+                toolTipContentGrid.Children.Add(textBlock); 
 
                 toolTip.Content = toolTipContentGrid;
 
-                stackPanel.ToolTip = toolTip; // Присваиваем ToolTip к StackPanel
+                stackPanel.ToolTip = toolTip; 
             }
         }
 
@@ -114,7 +112,7 @@ namespace ManGo
                 TitleWindow titleWindow = new TitleWindow(href);
                 if (this.WindowState == WindowState.Maximized)
                 {
-                    titleWindow.WindowState = WindowState.Maximized; // Установите новому окну состояние развернутого окна
+                    titleWindow.WindowState = WindowState.Maximized;
                 }
                 else
                 {
